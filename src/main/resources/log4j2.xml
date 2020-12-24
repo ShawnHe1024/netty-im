@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{%d{HH:mm:ss} [%t] %-5level %logger{36}} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="pers.shawn.nettyIm.mapper" level="debug"/>
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>
