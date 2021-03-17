@@ -52,7 +52,8 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
                     .setReceiver(messageInfo.getToUserId())
                     .setContent(content)
                     .setType(messageInfo.getType())
-                    .setSendTime(Timestamp.from(Instant.ofEpochMilli(messageInfo.getSendTime())));
+                    .setSendTime(Timestamp.from(Instant.ofEpochMilli(messageInfo.getSendTime())))
+                    .setDelFlag(false);
             mapper.insert(message);
         }
         messageResponsePacket.setMessage(messageInfo);

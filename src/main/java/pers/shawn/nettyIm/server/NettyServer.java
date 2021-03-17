@@ -1,17 +1,31 @@
 package pers.shawn.nettyIm.server;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.ssl.ApplicationProtocolNegotiator;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import pers.shawn.nettyIm.common.handler.IMIdleStateHandler;
+import pers.shawn.nettyIm.common.handler.SslChannelInitializer;
 import pers.shawn.nettyIm.server.handle.*;
 import pers.shawn.nettyIm.utils.Spliter;
+
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSessionContext;
+import java.io.File;
+import java.security.cert.CertificateException;
+import java.util.List;
 
 /**
  * @author jimmy
@@ -20,7 +34,7 @@ import pers.shawn.nettyIm.utils.Spliter;
  **/
 public class NettyServer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SSLException, CertificateException {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
 
         //接收连接
@@ -31,19 +45,7 @@ public class NettyServer {
             .group(boss, worker)
             //指定IO模型
             .channel(NioServerSocketChannel.class)
-            .childHandler(new ChannelInitializer<NioSocketChannel>() {
-                @Override
-                protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
-                    nioSocketChannel.pipeline().addLast(new IMIdleStateHandler());//心跳检测
-                    //拆包
-                    nioSocketChannel.pipeline().addLast(new Spliter());//内部实现关联 channel, 无法使用单例
-                    nioSocketChannel.pipeline().addLast(PacketCodecHandler.INSTANCE);
-                    nioSocketChannel.pipeline().addLast(LoginRequestHandler.INSTANCE);
-                    nioSocketChannel.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
-                    nioSocketChannel.pipeline().addLast(AuthHandler.INSTANCE);
-                    nioSocketChannel.pipeline().addLast(IMHandler.INSTANCE);
-                }
-            });
+            .childHandler(new SslChannelInitializer(getSSLContext(), false));
         serverBootstrap.handler(new ChannelInitializer<NioServerSocketChannel>() {
             @Override
             protected void initChannel(NioServerSocketChannel nioServerSocketChannel) throws Exception {
@@ -81,4 +83,10 @@ public class NettyServer {
         });
     }
 
+    private static SslContext getSSLContext() throws SSLException {
+        return SslContextBuilder.forServer(
+                new File("/home/shawn/Documents/java/netty-im/ssl/im.shawnhe.tech.crt"),
+                new File("/home/shawn/Documents/java/netty-im/ssl/im.shawnhe.tech.key")).build();
+    }
+//"A87A293E44400FFB26E3F56423B13A9F7DC10E6C45AF184142A6DAD40C6EF549"
 }

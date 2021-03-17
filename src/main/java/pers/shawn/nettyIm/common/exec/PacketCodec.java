@@ -53,7 +53,7 @@ public class PacketCodec {
     }
 
 
-    public ByteBuf encode(ByteBuf byteBuf, Packet packet) throws JsonProcessingException {
+    public ByteBuf encode(ByteBuf byteBuf, Packet packet) throws Exception {
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
@@ -65,7 +65,7 @@ public class PacketCodec {
         return byteBuf;
     }
 
-    public Packet decode(ByteBuf byteBuf) throws IOException {
+    public Packet decode(ByteBuf byteBuf) throws Exception {
 
         //跳过magic number
         byteBuf.skipBytes(4);

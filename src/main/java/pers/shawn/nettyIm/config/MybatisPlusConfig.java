@@ -26,7 +26,7 @@ public class MybatisPlusConfig {
         TransactionFactory transactionFactory = new ManagedTransactionFactory();
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setJdbcUrl("jdbc:postgresql://127.0.0.1:5432/private_chat");
+        dataSource.setJdbcUrl("jdbc:postgresql://127.0.0.1:54320/private_chat");
         dataSource.setUsername("postgres");
         dataSource.setPassword("root");
         Environment environment = new Environment("dev", transactionFactory, dataSource);

@@ -1,5 +1,8 @@
 package pers.shawn.nettyIm.client;
 
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.SslHandler;
 import pers.shawn.nettyIm.client.handle.*;
 import pers.shawn.nettyIm.common.exec.ConsoleCommandManager;
 import pers.shawn.nettyIm.common.exec.LoginConsoleCommand;
@@ -17,6 +20,9 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLException;
+import java.io.File;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +41,9 @@ public class NettyClient {
                 .channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<Channel>() {
                     protected void initChannel(Channel channel) throws Exception {
+                        SSLEngine engine = getSSLContext().newEngine(channel.alloc());
+                        engine.setUseClientMode(true);
+                        channel.pipeline().addFirst("ssl", new SslHandler(engine));
                         channel.pipeline().addLast(new IMIdleStateHandler());//心跳检测
                         //粘包
                         channel.pipeline().addLast(new Spliter());
@@ -60,6 +69,11 @@ public class NettyClient {
                 .option(ChannelOption.TCP_NODELAY, true);
         connect(bootstrap, host, port, MAX_RETRY);
 
+    }
+
+    private static SslContext getSSLContext() throws SSLException {
+        return SslContextBuilder.forClient().trustManager(
+                new File("/home/shawn/Documents/java/netty-im/ssl/im.shawnhe.tech.crt")).build();
     }
 
     private static final int MAX_RETRY = 5;

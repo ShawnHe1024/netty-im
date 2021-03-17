@@ -7,6 +7,7 @@
     </Appenders>
     <Loggers>
         <Logger name="pers.shawn.nettyIm.mapper" level="debug"/>
+        <Logger name="io.netty" level="trace"/>
         <Root level="info">
             <AppenderRef ref="STDOUT"/>
         </Root>

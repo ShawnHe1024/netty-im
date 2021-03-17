@@ -29,7 +29,7 @@ public interface Serializer {
       * @return: 对象序列化后的二进制数据
       * @desc:  java对象转换为二进制
       **/
-    byte[] serialize(Object object) throws JsonProcessingException;
+    byte[] serialize(Object object) throws Exception;
 
     /**
       * @author: jimmy
@@ -38,6 +38,6 @@ public interface Serializer {
       * @return: java对象
       * @desc:  二进制转为java对象
       **/
-    <T> T deserialize(Class<T> clazz, byte[] bytes) throws IOException;
+    <T> T deserialize(Class<T> clazz, byte[] bytes) throws Exception;
 
 }
