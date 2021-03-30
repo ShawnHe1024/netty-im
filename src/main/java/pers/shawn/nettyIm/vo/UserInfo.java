@@ -19,4 +19,6 @@ public class UserInfo {
 
     private SysMessage lastMessage;
 
+    private boolean online;
+
 }

@@ -2,6 +2,7 @@ package pers.shawn.nettyIm.server.handle;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -49,6 +50,8 @@ public class GetFriendsRequestHandler extends SimpleChannelInboundHandler<GetFri
                 if (sysMessage != null) {
                     userInfo.setLastMessage(sysMessage);
                 }
+                Channel friendChannel = SessionUtil.getChannel(userInfo.getId());
+                userInfo.setOnline(friendChannel == null);
             });
             packet.setUserList(userList);
         }

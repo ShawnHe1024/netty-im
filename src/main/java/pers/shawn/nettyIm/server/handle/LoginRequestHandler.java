@@ -35,7 +35,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             );
             if (sysUser == null || !(sysUser.getPassword().equals(loginRequestPacket.getPassword()))) {
                 packet.setSuccess(false);
-                packet.setReason("账号/密码错误");
+                packet.setReason("账号/密码错误！");
             } else {
                 UserInfo userInfo = new UserInfo();
                 userInfo.setId(sysUser.getId());
@@ -46,6 +46,10 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
                 packet.setSuccess(true);
                 System.out.println("用户" + sysUser.getUsername() + "登录，id为" + userInfo.getId());
             }
+            channelHandlerContext.channel().writeAndFlush(packet);
+        } catch (Exception e) {
+            packet.setSuccess(false);
+            packet.setReason("服务器异常！");
             channelHandlerContext.channel().writeAndFlush(packet);
         }
     }

@@ -85,8 +85,8 @@ public class NettyServer {
 
     private static SslContext getSSLContext() throws SSLException {
         return SslContextBuilder.forServer(
-                new File("/home/shawn/Documents/java/netty-im/ssl/im.shawnhe.tech.crt"),
-                new File("/home/shawn/Documents/java/netty-im/ssl/im.shawnhe.tech.key")).build();
+                new File("/home/shawn/Documents/java/netty-im/ssl/server.pem"),
+                new File("/home/shawn/Documents/java/netty-im/ssl/server.key")).build();
     }
 //"A87A293E44400FFB26E3F56423B13A9F7DC10E6C45AF184142A6DAD40C6EF549"
 }
