@@ -43,8 +43,8 @@ public interface Command {
 
     public static final Byte GET_FRIENDS_RESPONSE = 18;
 
-    public static final Byte REGISTER_REQUEST = 17;
+    public static final Byte REGISTER_REQUEST = 19;
 
-    public static final Byte REGISTER_RESPONSE = 18;
+    public static final Byte LOGOUT_REQUEST = 20;
 
 }

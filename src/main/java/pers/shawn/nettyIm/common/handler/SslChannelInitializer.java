@@ -27,6 +27,7 @@ public class SslChannelInitializer extends ChannelInitializer<NioSocketChannel> 
         nioSocketChannel.pipeline().addLast(new Spliter());//内部实现关联 channel, 无法使用单例
         nioSocketChannel.pipeline().addLast(PacketCodecHandler.INSTANCE);
         nioSocketChannel.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
+        nioSocketChannel.pipeline().addLast(RegisterRequestHandler.INSTANCE);
         nioSocketChannel.pipeline().addLast(LoginRequestHandler.INSTANCE);
         nioSocketChannel.pipeline().addLast(AuthHandler.INSTANCE);
         nioSocketChannel.pipeline().addLast(IMHandler.INSTANCE);

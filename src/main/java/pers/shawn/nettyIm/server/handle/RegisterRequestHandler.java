@@ -14,6 +14,9 @@ import pers.shawn.nettyIm.mapper.SysUserMapper;
 import pers.shawn.nettyIm.utils.SessionUtil;
 import pers.shawn.nettyIm.vo.UserInfo;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import static pers.shawn.nettyIm.config.MybatisPlusConfig.getSqlSessionFactory;
 
 /**
@@ -40,7 +43,8 @@ public class RegisterRequestHandler extends SimpleChannelInboundHandler<Register
             } else {
                 sysUser = new SysUser().setUsername(registerRequestPacket.getUsername())
                         .setPassword(registerRequestPacket.getPassword()).setNickname(registerRequestPacket.getNickname())
-                        .setAvatar(registerRequestPacket.getAvatar());
+                        .setAvatar(registerRequestPacket.getAvatar())
+                        .setCreateTime(Timestamp.valueOf(LocalDateTime.now())).setDelFlag(false);
                 int i = mapper.insert(sysUser);
                 if (i > 0) {
                     UserInfo userInfo = new UserInfo();

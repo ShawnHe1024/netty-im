@@ -5,6 +5,7 @@ import pers.shawn.nettyIm.common.Interface.Packet;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import pers.shawn.nettyIm.common.packet.LogoutRequestPacket;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class IMHandler extends SimpleChannelInboundHandler<Packet> {
         handlerMap.put(Command.QUIT_GROUP_REQUEST, QuitGroupRequestHandler.INSTANCE);
         handlerMap.put(Command.MESSAGE_GROUP_REQUEST, GroupMessageRequestHandler.INSTANCE);
         handlerMap.put(Command.GET_FRIENDS_REQUEST, GetFriendsRequestHandler.INSTANCE);
+        handlerMap.put(Command.LOGOUT_REQUEST, LogoutRequestHandler.INSTANCE);
     }
 
     @Override
