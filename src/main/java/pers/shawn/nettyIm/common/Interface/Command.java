@@ -47,4 +47,18 @@ public interface Command {
 
     public static final Byte LOGOUT_REQUEST = 20;
 
+    public static final Byte SEARCH_FRIEND_REQUEST = 21;
+
+    public static final Byte SEARCH_FRIEND_RESPONSE = 22;
+
+    public static final Byte ADD_FRIEND_REQUEST = 23;
+
+    public static final Byte ADD_FRIEND_RESPONSE = 24;
+
+    public static final Byte ENCRYPT_REQUEST = 25;
+
+    public static final Byte ENCRYPT_RESPONSE = 26;
+
+    public static final Byte FORWARD_RESPONSE = 27;
+
 }
