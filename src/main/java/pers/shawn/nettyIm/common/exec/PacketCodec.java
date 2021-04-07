@@ -48,6 +48,14 @@ public class PacketCodec {
         packetTypeMap.put(Command.GET_FRIENDS_RESPONSE, GetFriendsResponsePacket.class);
         packetTypeMap.put(Command.REGISTER_REQUEST, RegisterRequestPacket.class);
         packetTypeMap.put(Command.LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(Command.SEARCH_FRIEND_REQUEST, SearchFriendRequestPacket.class);
+        packetTypeMap.put(Command.SEARCH_FRIEND_RESPONSE, SearchFriendResponsePacket.class);
+        packetTypeMap.put(Command.ADD_FRIEND_REQUEST, AddFriendRequestPacket.class);
+        packetTypeMap.put(Command.ADD_FRIEND_RESPONSE, AddFriendResponsePacket.class);
+        packetTypeMap.put(Command.ENCRYPT_REQUEST, EncryptRequestPacket.class);
+        packetTypeMap.put(Command.ENCRYPT_RESPONSE, EncryptResponsePacket.class);
+        packetTypeMap.put(Command.FORWARD_RESPONSE, ForwardResponsePacket.class);
+        packetTypeMap.put(Command.UPDATE_AVATAR_REQUEST, UpdateAvatarRequestPacket.class);
 
         serializerMap = new HashMap<Byte, Serializer>();
         Serializer serializer = new JSONSerializer();

@@ -61,4 +61,6 @@ public interface Command {
 
     public static final Byte FORWARD_RESPONSE = 27;
 
+    public static final Byte UPDATE_AVATAR_REQUEST = 28;
+
 }
