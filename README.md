@@ -12,7 +12,8 @@ sudo apt update
 sudo apt install libssl1.0.0
 sudo apt install libapr1
 ```
-使用以下命令将下载的pfx转为key文件：
+使用以下命令将下载tomcat版本证书的pfx转为key文件：
 ```
 openssl pkcs12 -in 5375262_im.shawnhe.tech.pfx -nocerts -nodes -out server.key
 ```
+直接使用nginx版本证书的pem文件

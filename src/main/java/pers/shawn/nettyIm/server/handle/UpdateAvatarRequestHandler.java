@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import pers.shawn.nettyIm.common.packet.*;
 import pers.shawn.nettyIm.entity.SysUser;
@@ -18,6 +19,7 @@ import static pers.shawn.nettyIm.config.MybatisPlusConfig.getSqlSessionFactory;
  * @create 2019-01-14 17:28
  * @desc 登录请求处理器
  **/
+@Slf4j
 @ChannelHandler.Sharable
 public class UpdateAvatarRequestHandler extends SimpleChannelInboundHandler<UpdateAvatarRequestPacket> {
 
@@ -39,6 +41,7 @@ public class UpdateAvatarRequestHandler extends SimpleChannelInboundHandler<Upda
                 packet.setReason("数据库错误！");
             }
         } catch (Exception e) {
+            log.error("更新头像信息错误", e);
             packet.setSuccess(false);
             packet.setReason("服务器异常！");
         }

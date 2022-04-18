@@ -30,6 +30,7 @@ public class IMHandler extends SimpleChannelInboundHandler<Packet> {
         handlerMap.put(Command.GET_FRIENDS_REQUEST, GetFriendsRequestHandler.INSTANCE);
         handlerMap.put(Command.UPDATE_AVATAR_REQUEST, UpdateAvatarRequestHandler.INSTANCE);
         handlerMap.put(Command.LOGOUT_REQUEST, LogoutRequestHandler.INSTANCE);
+        handlerMap.put(Command.SEARCH_FRIEND_REQUEST, SearchFriendRequestHandler.INSTANCE);
     }
 
     @Override
